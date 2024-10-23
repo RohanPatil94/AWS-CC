@@ -2,17 +2,18 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 import { handleError, handleSuccess } from '../utils';
-import {API} from "../config.js";
+import { API } from "../config.js";
 
 function Signup() {
-
     const [signupInfo, setSignupInfo] = useState({
         name: '',
         email: '',
+        mobile: '', // Add mobile field
         password: ''
     })
 
     const navigate = useNavigate();
+    
     const handleChange = (e) => {
         const { name, value } = e.target;
         console.log(name, value);
@@ -23,9 +24,9 @@ function Signup() {
 
     const handleSignup = async (e) => {
         e.preventDefault();
-        const { name, email, password } = signupInfo;
-        if (!name || !email || !password) {
-            return handleError('name, email and password are required')
+        const { name, email, mobile, password } = signupInfo; // Include mobile
+        if (!name || !email || !mobile || !password) { // Validate mobile
+            return handleError('Name, email, mobile, and password are required')
         }
         try {
             // const url = `${API}/register`;
@@ -56,6 +57,7 @@ function Signup() {
             handleError(err);
         }
     }
+
     return (
         <div className='container'>
             <h1>Signup</h1>
@@ -82,6 +84,16 @@ function Signup() {
                     />
                 </div>
                 <div>
+                    <label htmlFor='mobile'>Mobile</label> {/* Add mobile label */}
+                    <input
+                        onChange={handleChange}
+                        type='tel' // Use 'tel' for mobile input
+                        name='mobile'
+                        placeholder='Enter your mobile number...'
+                        value={signupInfo.mobile}
+                    />
+                </div>
+                <div>
                     <label htmlFor='password'>Password</label>
                     <input
                         onChange={handleChange}
@@ -101,4 +113,4 @@ function Signup() {
     )
 }
 
-export default Signup
+export default Signup;
