@@ -29,7 +29,7 @@ function Login() {
         }
         try {
             console.log(API);
-            // const url = `http://54.209.52.36:4000/login`; 
+            const url = `http://54.209.52.36:4000/login`; 
             // const url = `${API}/login`; 
             // const url = `http://localhost:8080/auth/login`;
             const response = await fetch(url, {
