@@ -29,7 +29,7 @@ function Signup() {
         }
         try {
             // const url = `${API}/register`;
-            const url = `http://54.209.52.36:4000//register`; 
+            const url = `http://54.209.52.36:4000/register`; 
             // const url = `http://localhost:8080/auth/signup`;
             const response = await fetch(url, {
                 method: "POST",
