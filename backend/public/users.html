@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registered Users</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Registered Users</h1>
+    <table id="usersTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="4">Loading...</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        async function fetchUsers() {
+            try {
+                const response = await fetch('http://localhost:3000/users'); // Adjust the URL as needed
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                const tbody = document.querySelector('#usersTable tbody');
+                tbody.innerHTML = ''; // Clear loading text
+
+                if (data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4">No users found.</td></tr>';
+                    return;
+                }
+
+                // Populate the table with user data
+                data.forEach(user => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${user.id}</td>
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                        <td>${user.mobile}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching users:', error);
+                const tbody = document.querySelector('#usersTable tbody');
+                tbody.innerHTML = '<tr><td colspan="4">Error fetching user data.</td></tr>';
+            }
+        }
+
+        fetchUsers();
+    </script>
+</body>
+</html>
