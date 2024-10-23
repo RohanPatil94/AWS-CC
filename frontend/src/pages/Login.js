@@ -28,7 +28,9 @@ function Login() {
             return handleError('email and password are required')
         }
         try {
-            const url = `${API}/auth/login`; 
+            console.log(API);
+            // const url = `http://54.209.52.36:4000/login`; 
+            // const url = `${API}/login`; 
             // const url = `http://localhost:8080/auth/login`;
             const response = await fetch(url, {
                 method: "POST",
