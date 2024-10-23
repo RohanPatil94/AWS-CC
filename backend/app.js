@@ -22,7 +22,7 @@ const query = (text, params) => pool.query(text, params);
 
 // Initialize Express app
 const app = express();
-const port = 3000;
+const port = 4000;
 
 // Middleware
 app.use(cors()); // This will allow all origins by default
